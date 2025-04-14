@@ -17,6 +17,8 @@ import Permissions from "./pages/Permissions"
 import Interview from "./pages/Interview"
 import Error from "./pages/Error"
 import { ACCOUNT_TYPE } from "./utils/constants"
+import Login from "./pages/Login"
+import Signup from "./pages/Signup"
 
 function App() {
 
@@ -28,6 +30,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/permissions" element={<Permissions />} />
           <Route path="/interview" element={<Interview />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </div>

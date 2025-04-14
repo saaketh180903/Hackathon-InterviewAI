@@ -20,6 +20,8 @@ const Navbar = () => {
         <h1 className="text-xl font-bold">Logo</h1>
         <ul className="flex space-x-6 font-medium">
           <li><a href="/" className="hover:text-blue-500">Home</a></li>
+          <li><a href="/login" className="hover:text-blue-500">Login</a></li>
+          <li><a href="/signup" className="hover:text-blue-500">SignUp</a></li>
         </ul>
       </div>
     </nav>

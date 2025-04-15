@@ -3,6 +3,8 @@ import Information from '../components/core/Information'
 import WebcamStreamCapture from "../components/core/Webcam";
 import AudioRecorder from '../components/core/AudioRecorder';
 import { useNavigate } from 'react-router-dom';
+import { useRef } from 'react';
+
 
 
 const Interview = () => {
@@ -47,51 +49,55 @@ const Interview = () => {
    }
  }, [showCountdown]);
 
+ const transitionLock = useRef(false);
 
  useEffect(() => {
-   let timer;
-    if (showCountdown) {
-     timer = setInterval(() => {
-       setCountdown((prev) => {
-         if (prev === 1) {
-           clearInterval(timer);
-           setShowCountdown(false);
-           return 5;
-         }
-         return prev - 1;
-       });
-     }, 1000);
-   } else if (currentIndex < questions.length) {
-     timer = setInterval(() => {
-       setTimeLeft((prev) => {
-         if (prev === 1) {
-           clearInterval(timer);
-           setTimeLeft(0);
+  let timer;
 
+  if (showCountdown) {
+    timer = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev === 1) {
+          clearInterval(timer);
+          setShowCountdown(false);
+          return 5;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  } else if (currentIndex < questions.length) {
+    timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev === 1) {
+          clearInterval(timer);
+          setTimeLeft(0);
 
-           // Trigger stop event
-           const stopEvent = new Event('stopRecording');
-           window.dispatchEvent(stopEvent);
+          // Avoid triggering multiple transitions
+          if (transitionLock.current) return prev;
+          transitionLock.current = true;
 
+          const stopEvent = new Event('stopRecording');
+          window.dispatchEvent(stopEvent);
 
-           setTimeout(() => {
-             setCurrentIndex((prevIndex) => prevIndex + 1);
-             setShowCountdown(true);
-             setTimeLeft(10);
+          setTimeout(() => {
+            setCurrentIndex((prevIndex) => prevIndex + 1);
+            setShowCountdown(true);
+            setTimeLeft(10);
 
+            const startEvent = new Event('startRecording');
+            window.dispatchEvent(startEvent);
 
-             // Trigger start event for next question
-             const startEvent = new Event('startRecording');
-             window.dispatchEvent(startEvent);
-           }, 1000);
-           return 0;
-         }
-         return prev - 1;
-       });
-     }, 1000);
-   }
-    return () => clearInterval(timer);
- }, [showCountdown, currentIndex]);
+            transitionLock.current = false; // reset the lock after transition
+          }, 1000);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  }
+
+  return () => clearInterval(timer);
+}, [showCountdown, currentIndex]);
 
 
  useEffect(() => {

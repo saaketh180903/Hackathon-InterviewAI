@@ -9,7 +9,7 @@ import { Route, Routes, useNavigate } from "react-router-dom"
 import Navbar from "./components/common/Navbar"
 import OpenRoute from "./components/core/auth/OpenRoute"
 import PrivateRoute from "./components/core/auth/PrivateRoute"
-// import Dashboard from "./pages/Dashboard"
+import Dashboard from "./pages/Dashboard"
 
 // Pages
 import Home from "./pages/Home"
@@ -32,6 +32,7 @@ function App() {
           <Route path="/interview" element={<Interview />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </div>

@@ -19,6 +19,7 @@ import Error from "./pages/Error"
 import { ACCOUNT_TYPE } from "./utils/constants"
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
+import Analytics from "./pages/Analytics"
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/analytics" element={<Analytics />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </div>

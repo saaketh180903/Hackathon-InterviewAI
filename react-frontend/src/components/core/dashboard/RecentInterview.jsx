@@ -9,7 +9,7 @@ const RecentInterview = () => {
     return (
         <div className='w-full'>
             <div className=' text-right w-full pr-3'>
-                <Link to="/" className="text-sm font-bold text-black underline">
+                <Link to="/dashboard/analytics" className="text-sm font-bold text-black underline">
                     View Analysis
                 </Link>
             </div>
